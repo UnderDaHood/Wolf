@@ -4,7 +4,7 @@
 // 
 // 
 // 
-// (c) Jeroen P. Broks, 2022
+// (c) Jeroen P. Broks, 2022, 2023
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 // Please note that some references to data like pictures or audio, do not automatically
 // fall under this licenses. Mostly this is noted in the respective files.
 // 
-// Version: 22.02.23
+// Version: 23.08.06
 // EndLic
 using System;
 using System.Collections.Generic;
@@ -37,11 +37,13 @@ namespace NWolf {
 	class Wolf {
 		static void Main(string[] args) {
 			Dirry.InitAltDrives();
-			MKL.Version("Wolf - Program.cs","22.02.23");
+			MKL.Version("Wolf - Program.cs","23.08.06");
 			MKL.Lic    ("Wolf - Program.cs","GNU General Public License 3");
 			JCR6_lzma.Init();
 			JCR6_JXSDA.Init();
 			JCR6_zlib.Init();
+			new JCR_QuickLink();
+			
 			QCol.Yellow($"Wolf {MKL.Newest}\t");
 			QCol.Magenta("Coded by: Tricky\n");
 			QCol.Cyan($"(c) Jeroen P. Broks 2022-20{qstr.Left(MKL.Newest,2)}\n\n");
@@ -65,6 +67,9 @@ namespace NWolf {
 		SortedDictionary<string, List<TJCREntry>> MusPos;
 
 		string Ask(string cat,string vr,string Question,string DefaultValue = "") {
+			cat = cat.Trim();
+			vr = vr.Trim();
+			DefaultValue= DefaultValue.Trim();
 			while (Data[cat, vr] == "") {
 				if (DefaultValue != "") QCol.Magenta($"[{DefaultValue}] ");
 				QCol.Yellow($"{Question} ");
@@ -115,7 +120,14 @@ namespace NWolf {
 		}
 
 		void WorkOut() {
-			var output = new StringBuilder("\n#use \"Libs/LinkedList\"\n\nClass TMusicPiece\n\tString Entry\n\tString Title\n\tString Artist\n\tString WebSite\n\tString License\n\tStatic Var Lst = New LinkedList()\nEnd\n\nInit\n");
+			var glist = new List<string>();
+			var output = new StringBuilder();
+			var outlang = Ask("DataOut", "Language", "Output language ", "Neil").ToUpper();
+			switch (outlang) {
+				case "NEIL": output.Append("\n#use \"Libs/LinkedList\"\n\nClass TMusic\n\tString Entry\n\tString Title\n\tString Artist\n\tString WebSite\n\tString License\n\tStatic Var Lst = New LinkedList()\nEnd\n\nInit\n"); break;
+				case "GINIE": output.Append(""); break;
+				default: QCol.QuickError("Unknown language"); return;
+			}
 			foreach (var EL in MusPos.Values) {
 				while (Used(EL) == "") {
 					int ch = 0;
@@ -138,17 +150,39 @@ namespace NWolf {
 				var F = Used(EL);
 				var D = EL[0];
 				if (Yes("JukeBox", F, $"Put {F} into the jukebox")) {
-					output.Append("\tDo\n\t\tVar N = New TMusic()\n");
-					output.Append($"\t\tN.Entry   = \"{F}\"\n");
-					output.Append($"\t\tN.License = \"{D.Notes}\"\n");
-					output.Append($"\t\tN.Title   = \"{Ask("Titles",F,$"Title for '{F}': ",qstr.StripAll(F))}\"\n");
-					output.Append($"\t\tN.Artist  = \"{Ask("Artists", D.Author, "Artist name:", D.Author)}\"\n");
-					output.Append($"\t\tN.WebSite = \"{Ask("Artist_site", D.Author, $"{D.Author}'s artist site:","NONE")}\"\n");
-					output.Append("\t\tTMusic.Lst.AddLast(N)\n");
-					output.Append("\tEnd\n");
+					switch (outlang) {
+						case "NEIL":
+							output.Append("\tDo\n\t\tVar N = New TMusic()\n");
+							output.Append($"\t\tN.Entry   = \"{F}\"\n");
+							output.Append($"\t\tN.License = \"{D.Notes}\"\n");
+							output.Append($"\t\tN.Title   = \"{Ask("Titles", F, $"Title for '{F}': ", qstr.StripAll(F))}\"\n");
+							output.Append($"\t\tN.Artist  = \"{Ask("Artists", D.Author, "Artist name:", D.Author)}\"\n");
+							output.Append($"\t\tN.WebSite = \"{Ask("Artist_site", D.Author, $"{D.Author}'s artist site:", "NONE")}\"\n");
+							output.Append("\t\tTMusic.Lst.AddLast(N)\n");
+							output.Append("\tEnd\n");
+							break;
+						case "GINIE":
+							output.Append($"[Entry:{F}]\n");
+							output.Append($"License={D.Notes}\n");
+							output.Append($"Title={ Ask("Titles", F, $"Title for '{F}': ", qstr.StripAll(F))}\n");
+							output.Append($"Artist={Ask("Artists", D.Author, "Artist name:", D.Author)}\n");
+							output.Append($"WebSite={Ask("Artist_site", D.Author, $"{D.Author}'s artist site:", "NONE")}\n");
+							glist.Add(F);//output.Append("\t\tTMusic.Lst.AddLast(N)\n");
+							output.Append("\n\n");
+							break;
+					}
 				}
 			}
-			output.Append("End\n");
+			switch (outlang) {
+				case "NEIL":
+					output.Append("End\n");
+					break;
+				case "GINIE":
+					output.Append("[Index]\n*list:Index\n");
+					foreach (var E in glist) output.Append($"{E}\n");
+					output.Append("*end\n\n");
+					break;
+			}
 			QuickStream.SaveString(Ask("System", "Output", "Script to output to: "), output);
 		}
 

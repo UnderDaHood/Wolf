@@ -187,6 +187,7 @@
     <Compile Include="..\TrickyUnits\TrickyDbg.cs">
       <Link>Units\TrickyDbg.cs</Link>
     </Compile>
+    <Compile Include="JCR6\JQL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
