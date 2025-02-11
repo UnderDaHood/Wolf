@@ -37,17 +37,17 @@ namespace NWolf {
 	class Wolf {
 		static void Main(string[] args) {
 			Dirry.InitAltDrives();
-			MKL.Version("Wolf - Program.cs","23.08.06");
-			MKL.Lic    ("Wolf - Program.cs","GNU General Public License 3");
+			MKL.Version("Wolf - Program.cs", "23.08.06");
+			MKL.Lic("Wolf - Program.cs", "GNU General Public License 3");
 			JCR6_lzma.Init();
 			JCR6_JXSDA.Init();
 			JCR6_zlib.Init();
 			new JCR_QuickLink();
-			
+
 			QCol.Yellow($"Wolf {MKL.Newest}\t");
 			QCol.Magenta("Coded by: Tricky\n");
-			QCol.Cyan($"(c) Jeroen P. Broks 2022-20{qstr.Left(MKL.Newest,2)}\n\n");
-			foreach(var a in args) {
+			QCol.Cyan($"(c) Jeroen P. Broks 2022-20{qstr.Left(MKL.Newest, 2)}\n\n");
+			foreach (var a in args) {
 				var w = new Wolf(a);
 				w.Run();
 			}
@@ -66,10 +66,10 @@ namespace NWolf {
 		TJCRDIR JRes;
 		SortedDictionary<string, List<TJCREntry>> MusPos;
 
-		string Ask(string cat,string vr,string Question,string DefaultValue = "") {
+		string Ask(string cat, string vr, string Question, string DefaultValue = "") {
 			cat = cat.Trim();
 			vr = vr.Trim();
-			DefaultValue= DefaultValue.Trim();
+			DefaultValue = DefaultValue.Trim();
 			while (Data[cat, vr] == "") {
 				if (DefaultValue != "") QCol.Magenta($"[{DefaultValue}] ");
 				QCol.Yellow($"{Question} ");
@@ -104,7 +104,7 @@ namespace NWolf {
 
 		string Used(List<TJCREntry> EL) {
 			if (EL.Count == 1) return EL[0].Entry;
-			foreach(var E in EL) {
+			foreach (var E in EL) {
 				if (Data["USED", E.Entry].ToUpper() == "YES") return E.Entry;
 			}
 			return "";
@@ -112,10 +112,12 @@ namespace NWolf {
 
 		void Analyze() {
 			MusPos = new SortedDictionary<string, List<TJCREntry>>();
-			foreach(var E in JRes.Entries.Values) {
-				var Place = $"{E.MainFile}::{E.Offset}";
-				if (!MusPos.ContainsKey(Place)) MusPos[Place] = new List<TJCREntry>();
-				MusPos[Place].Add(E);
+			foreach (var E in JRes.Entries.Values) {
+				if (qstr.ExtractExt(E.Entry)!="" && Yes("ALLOWEXTENSION", qstr.ExtractExt(E.Entry), $"Is '{qstr.ExtractExt(E.Entry)}' a usable extension for WOLF in this project")) {
+					var Place = $"{E.MainFile}::{E.Offset}";
+					if (!MusPos.ContainsKey(Place)) MusPos[Place] = new List<TJCREntry>();
+					MusPos[Place].Add(E);
+				}
 			}
 		}
 
