@@ -164,9 +164,10 @@ namespace NWolf {
 					do {
 						QCol->Yellow("Which entry should I use? ");
 						QCol->Cyan("");
-						choice = ToInt(ReadLine());
+						choice = ToInt(Trim(ReadLine()));
+						if (!items.count(choice)) QCol->Error(TrSPrintF("There is no entry #%d!",choice)); else QCol->Doing("Chosen",items[choice]);
 					} while (!items.count(choice));
-					Data->Value("Used", items[choice])== "YES";
+					Data->Value("Used", items[choice],"YES");
 				}
 				auto F = Used(EL);
 				auto D = EL[0];
@@ -189,6 +190,7 @@ namespace NWolf {
 							output += "Title="+ Ask("Titles", F, "Title for '"+F+"': ", StripAll(F))+"\n";
 							output += "Artist="+Ask("Artists", D->Author(), "Artist name:", D->Author())+"\n";
 							output += "WebSite="+Ask("Artist_site", D->Author(), D->Author()+"'s artist site:", "NONE")+"\n";
+							output += "File="+F+"\n\n";
 							//glist.Add(F);//output += "\t\tTMusic.Lst.AddLast(N)\n");
 							glist.push_back(F);
 							output += "\n\n";
@@ -231,6 +233,8 @@ namespace NWolf {
 
 			//new JCR_QuickLink();
 			InitJQL();
+			init_zlib();
+
 
 
 			QCol->Yellow("Wolf (C++) " __DATE__ "; " __TIME__" \t");
