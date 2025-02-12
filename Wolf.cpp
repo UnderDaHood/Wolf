@@ -1,28 +1,32 @@
-// Lic:
+// License:
+// 
 // Wolf
-// Data collector for RPG jukeboxes
+// Music indexing for SCI games
 // 
 // 
 // 
-// (c) Jeroen P. Broks, 2022, 2023
+// 	(c) Jeroen P. Broks, 2022, 2023, 2025
 // 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+// 		This program is free software: you can redistribute it and/or modify
+// 		it under the terms of the GNU General Public License as published by
+// 		the Free Software Foundation, either version 3 of the License, or
+// 		(at your option) any later version.
 // 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// 		This program is distributed in the hope that it will be useful,
+// 		but WITHOUT ANY WARRANTY; without even the implied warranty of
+// 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// 		GNU General Public License for more details.
+// 		You should have received a copy of the GNU General Public License
+// 		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 
-// Please note that some references to data like pictures or audio, do not automatically
-// fall under this licenses. Mostly this is noted in the respective files.
+// 	Please note that some references to data like pictures or audio, do not automatically
+// 	fall under this licenses. Mostly this is noted in the respective files.
 // 
-// Version: 23.08.06
-// EndLic
+// Version: 25.02.12 I
+// End License
+
+/* Orginal C# usings
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,30 +34,16 @@ using System.Text;
 using UseJCR6;
 using TrickyUnits;
 
+*/
 
-// Wolf is a quick program that collects JukeBox data for an Apollo project
+using namespace std;
+
+
+// Wolf is a quick program that collects JukeBox data for an SCI project
 // The name "Wolf" is derrived from WOLFgang Amadeaus Mozart
 namespace NWolf {
 	class Wolf {
-		static void Main(string[] args) {
-			Dirry.InitAltDrives();
-			MKL.Version("Wolf - Program.cs", "23.08.06");
-			MKL.Lic("Wolf - Program.cs", "GNU General Public License 3");
-			JCR6_lzma.Init();
-			JCR6_JXSDA.Init();
-			JCR6_zlib.Init();
-			new JCR_QuickLink();
-
-			QCol.Yellow($"Wolf {MKL.Newest}\t");
-			QCol.Magenta("Coded by: Tricky\n");
-			QCol.Cyan($"(c) Jeroen P. Broks 2022-20{qstr.Left(MKL.Newest, 2)}\n\n");
-			foreach (var a in args) {
-				var w = new Wolf(a);
-				w.Run();
-			}
-			TrickyDebug.AttachWait();
-		}
-
+	public:
 
 		readonly string Project;
 		Wolf(string a) { Project = a; Data = GINIE.FromFile(ProjectFile); Data.AutoSaveSource = ProjectFile; }
@@ -198,5 +188,29 @@ namespace NWolf {
 			Console.ResetColor();
 		}
 
+		static void Main(vector<string> args) {
+			Dirry.InitAltDrives();
+			MKL.Version("Wolf - Program.cs", "23.08.06");
+			MKL.Lic("Wolf - Program.cs", "GNU General Public License 3");
+			JCR6_lzma.Init();
+			JCR6_JXSDA.Init();
+			JCR6_zlib.Init();
+			new JCR_QuickLink();
+
+			QCol.Yellow($"Wolf {MKL.Newest}\t");
+			QCol.Magenta("Coded by: Tricky\n");
+			QCol.Cyan($"(c) Jeroen P. Broks 2022-20{qstr.Left(MKL.Newest, 2)}\n\n");
+			foreach (var a in args) {
+				var w = new Wolf(a);
+				w.Run();
+			}
+			TrickyDebug.AttachWait();
+		}
 	}
+}
+int main(int c,char **a){
+	vector<string> ARGS{}
+	for(int i=1;i<c;i++) ARGS.push_back(a[i]);
+	NWolf::Wolf::Main(ARGS);
+	return 0;
 }
