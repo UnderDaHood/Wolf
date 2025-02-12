@@ -62,7 +62,7 @@ namespace NWolf {
 
 		//string Resource { return Ask("System", "Resource", "What JCR6 resource file should I use for this project?"); }
 
-		GINIE Data;
+		GINIE Data{nullptr};
 		TJCRDIR JRes;
 		SortedDictionary<string, List<TJCREntry>> MusPos;
 
