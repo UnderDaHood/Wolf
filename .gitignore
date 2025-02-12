@@ -1,0 +1,6 @@
+*.layout
+*.depend
+MKL_*
+bin
+obj
+
