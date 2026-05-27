@@ -31,6 +31,73 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/adler32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/compress.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/crc32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/crc32.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/deflate.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/deflate.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/gzclose.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/gzguts.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/gzlib.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/gzread.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/gzwrite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/infback.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/inffast.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/inffast.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/inffixed.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/inflate.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/inflate.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/inftrees.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/inftrees.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/trees.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/trees.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/uncompr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/zconf.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/zlib.h" />
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/zutil.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Libs/JCR6/3rdParty/zlib/src/zutil.h" />
+		<Unit filename="../../Libs/JCR6/Source/JCR6_Core.cpp" />
+		<Unit filename="../../Libs/JCR6/Source/JCR6_JQL.cpp" />
+		<Unit filename="../../Libs/JCR6/Source/JCR6_RealDir.cpp" />
+		<Unit filename="../../Libs/JCR6/Source/JCR6_zlib.cpp" />
+		<Unit filename="../../Libs/Units/Source/SlyvBank.cpp" />
+		<Unit filename="../../Libs/Units/Source/SlyvDir.cpp" />
+		<Unit filename="../../Libs/Units/Source/SlyvDirry.cpp" />
+		<Unit filename="../../Libs/Units/Source/SlyvQCol.cpp" />
+		<Unit filename="../../Libs/Units/Source/SlyvSTOI.cpp" />
+		<Unit filename="../../Libs/Units/Source/SlyvStream.cpp" />
+		<Unit filename="../../Libs/Units/Source/SlyvString.cpp" />
 		<Unit filename="Wolf.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
